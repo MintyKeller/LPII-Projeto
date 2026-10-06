@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -8,43 +8,44 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+require_once "phps/conexao.php";
+$resultado = mysqli_query($conexao, "SELECT id_categ, nome_show FROM categoria ORDER BY nome_show");
+if (!$resultado) {
+    die("Erro na query: " . mysqli_error($conexao));
+}
+?>
+
 <body class="bg-gray-50 antialiased">
     <div id="conteudo" class="flex w-screen h-screen overflow-hidden gap-2">
 
         <div id="side-bar"
             class="w-64 bg-[#80ADFA] p-6 flex flex-col justify-between flex-shrink-0 transition-all duration-300">
             <div>
-
                 <button id="toggleSidebar"
                     class="absolute left-1 top-6 bg-white text-[#87C074] px-3 py-1 rounded-md shadow-sm font-bold hover:bg-gray-50 cursor-pointer transition mr-10 ml-0">
                     ☰
                 </button>
-                <div class="h-15 "></div>
+                <div class="h-15"></div>
                 <nav class="flex flex-col gap-3">
-
                     <div>
                         <a href="../area.html"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Home
-                            Admin </a>
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Home Admin</a>
                     </div>
 
                     <div>
                         <a href="editar-e-excluir.html"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Edição
-                            e Exclusão</a>
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Edição e Exclusão</a>
                     </div>
 
                     <div>
                         <a href="login-e-logout.html"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Login
-                            e Logout</a>
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Login e Logout</a>
                     </div>
-
-
-
                 </nav>
             </div>
-
         </div>
 
         <div id="area" class="flex-1 flex flex-col h-full overflow-y-auto">
@@ -56,139 +57,116 @@
                 </nav>
             </header>
 
-            <main class="flex-1 flex flex-col gap-2">
+            <main class="flex-1 p-6 bg-gray-50">
 
-                <div id="form" class="min-h-screen flex flex-col md:grid md:grid-cols-2 gap-8 p-6 bg-gray-50">
+                <div id="form" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
 
-
+                    <!-- BLOCO INSERIR (ESQUERDA) -->
                     <div id="inserir" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
 
-                        <h1 class="text-2xl font-bold text-gray-800 mb-6"> Insira os dados para cadastrar show: </h1>
+                        <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira os dados para cadastrar show:</h1>
 
-                        <form class="flex flex-col gap-4">
+                        <form action="phps/cadastrar.php" method="POST" class="flex flex-col gap-4">
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                                 <div class="flex flex-col gap-1">
-                                    <label for="id_show" class="text-sm font-medium text-gray-700">ID do show</label>
-
-                                    <input type="number" id="id_show" name="id_show" placeholder="Ex: 1"
+                                    <label for="categ_id" class="text-sm font-medium text-gray-700">Categoria</label>
+                                    <select id="categ_id" name="categ_id" onchange="toggleNovaCategoria(this)"
                                         class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="">Selecione...</option>
+                                        <?php while ($cat = mysqli_fetch_assoc($resultado)) { ?>
+                                            <option value="<?= $cat['id_categ'] ?>"><?= htmlspecialchars($cat['nome_show']) ?></option>
+                                        <?php } ?>
+                                        <option value="nova">+ Nova categoria...</option>
+                                    </select>
+
+                                    <input type="text" id="nova_categoria" name="nova_categoria" placeholder="Nome da nova categoria"
+                                        class="hidden border border-gray-300 rounded-lg p-2.5 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <div class="flex flex-col gap-1">
-                                    <label for="categ_id" class="text-sm font-medium text-gray-700"> ID da
-                                        categoria</label>
-
-                                    <input type="number" id="categ_id" name="categ_id" placeholder="Ex: 2"
+                                    <label for="titulo" class="text-sm font-medium text-gray-700">Título do show</label>
+                                    <input type="text" id="titulo" name="titulo" placeholder="Nome do show"
                                         class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
-
-                            </div>
-
-                            <div class="flex flex-col gap-1">
-                                <label for="titulo" class="text-sm font-medium text-gray-700"> Título do show</label>
-
-                                <input type="text" id="titulo" name="titulo" placeholder="Nome do show"
-                                    class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
+                            </div> <!-- FECHAMENTO CORRIGIDO DA GRID DE CATEGORIA E TÍTULO -->
 
                             <div class="flex flex-col gap-1">
                                 <label for="descricao" class="text-sm font-medium text-gray-700">Descrição</label>
-
-                                <textarea id="descricao" name="descricao" rows="4"
-                                    placeholder="Digite uma descrição para o show"
+                                <textarea id="descricao" name="descricao" rows="4" placeholder="Digite uma descrição para o show"
                                     class="border border-gray-300 rounded-lg p-2.5 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                                 <div class="flex flex-col gap-1">
-                                    <label for="data_show" class="text-sm font-medium text-gray-700"> Data do
-                                        show</label>
-
+                                    <label for="data_show" class="text-sm font-medium text-gray-700">Data do show</label>
                                     <input type="date" id="data_show" name="data_show"
                                         class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <div class="flex flex-col gap-1">
                                     <label for="locais" class="text-sm font-medium text-gray-700">Local</label>
-
                                     <input type="text" id="locais" name="locais" placeholder="Ex: Teatro Municipal"
                                         class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
-
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                                 <div class="flex flex-col gap-1">
-                                    <label for="preco" class="text-sm font-medium text-gray-700"> Preço</label>
-                                    <input type="number" id="preco" name="preco" step="0.01" min="0"
-                                        placeholder="Ex: 50.00"
+                                    <label for="preco" class="text-sm font-medium text-gray-700">Preço</label>
+                                    <input type="number" id="preco" name="preco" step="0.01" min="0" placeholder="Ex: 50.00"
                                         class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <div class="flex flex-col gap-1">
-                                    <label for="capacidade" class="text-sm font-medium text-gray-700">
-                                        Capacidade </label>
-
+                                    <label for="capacidade" class="text-sm font-medium text-gray-700">Capacidade</label>
                                     <input type="number" id="capacidade" name="capacidade" min="1" placeholder="Ex: 500"
                                         class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
-
                             </div>
 
                             <div class="flex flex-col gap-1">
-                                <label for="ing_disponiveis" class="text-sm font-medium text-gray-700">
-                                    Ingressos disponíveis </label>
-
-                                <input type="text" id="ing_disponiveis" name="ing_disponiveis"
-                                    placeholder="Ex: Ingrediente 1, Ingrediente 2"
+                                <label for="ing_disponiveis" class="text-sm font-medium text-gray-700">Ingressos disponíveis</label>
+                                <input type="number" id="ing_disponiveis" name="ing_disponiveis" min="0" placeholder="Ex: 500"
                                     class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <div class="flex flex-col gap-1">
-                                <label for="imagem" class="text-sm font-medium text-gray-700">
-                                    Imagem
-                                </label>
-
+                                <label for="imagem" class="text-sm font-medium text-gray-700">Imagem</label>
                                 <input type="text" id="imagem" name="imagem" placeholder="URL da imagem"
                                     class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <button type="submit"
-                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">Cadastrar
-                                show</button>
+                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                                Cadastrar show
+                            </button>
 
                         </form>
 
                     </div>
 
-
-
+                    <!-- BLOCO LISTAR (DIREITA) -->
                     <div id="listar" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
 
-                        <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira o nome para procurar show, ou apenas
-                            clique no botão para listar todos:</h1>
+                        <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira o nome para procurar show, ou apenas clique no botão para listar todos:</h1>
 
-                        <form class="flex flex-col gap-4 p-10">
+                        <form action="phps/buscar.php" method="GET" class="flex flex-col gap-4">
                             <div class="flex flex-col gap-1">
-                                <label for="titulo" class="text-sm font-medium text-gray-700"> Título do show</label>
-
-                                <input type="text" id="titulo" name="titulo" placeholder="Nome do show"
+                                <label for="titulo_busca" class="text-sm font-medium text-gray-700">Título do show</label>
+                                <input type="text" id="titulo_busca" name="titulo" placeholder="Nome do show"
                                     class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <button type="submit"
-                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">Buscar
-                                por Nome</button>
+                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                                Buscar por Nome
+                            </button>
 
-                            <button type="submit"
-                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">Listar
-                                Todos</button>
-
-
+                             <a href="phps/listar.php"
+                            class="text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                            Listar Todos
+                            </a>
                         </form>
 
                     </div>
@@ -197,14 +175,12 @@
 
             </main>
 
-
             <footer class="p-6 bg-[#C8DF9A] text-[#87C074] flex-shrink-0 mt-auto">
                 <p class="font-bold text-center">Talita de Souza Keller, Atividade LPII, 3I</p>
             </footer>
         </div>
 
     </div>
-
 
     <script>
         const sidebar = document.getElementById('side-bar');
@@ -213,6 +189,11 @@
         toggleBtn.addEventListener('click', () => {
             sidebar.classList.toggle('-ml-50');
         });
+
+        function toggleNovaCategoria(select) {
+            document.getElementById('nova_categoria')
+                .classList.toggle('hidden', select.value !== 'nova');
+        }
     </script>
 
 </body>
