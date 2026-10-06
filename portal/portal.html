@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Público</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-50 antialiased">
+    <div id="conteudo" class="flex w-screen h-screen overflow-hidden gap-2">
+
+        <div id="side-bar"
+            class="w-64 bg-[#80ADFA] p-6 flex flex-col justify-between flex-shrink-0 transition-all duration-300">
+            <div>
+
+                <button id="toggleSidebar"
+                    class="absolute left-1 top-6 bg-white text-[#87C074] px-3 py-1 rounded-md shadow-sm font-bold hover:bg-gray-50 cursor-pointer transition ">
+                    ☰
+                </button>
+                <div class="h-15 "></div>
+                <nav class="flex flex-col gap-3">
+                    <div>
+                        <a href="#"
+                            class="px-4 py-2 rounded-lg bg-white/20 text-white font-medium hover:bg-white/30 transition">Home</a>
+                    </div>
+
+                    <div>
+                        <a href="pags/detalhes.html"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Detalhes
+                            do Shows</a>
+                    </div>
+
+                    <div>
+                        <a href="#"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">x</a>
+                    </div>
+
+
+                </nav>
+            </div>
+
+        </div>
+
+        <div id="area" class="flex-1 flex flex-col h-full overflow-y-auto">
+
+            <header class="bg-[#C8DF9A] text-[#87C074] p-6 flex flex-col gap-4 flex-shrink-0">
+                <h1 class="font-bold text-2xl text-center">Shows</h1>
+                <nav class="flex justify-center gap-20">
+                    <a href="pags/detalhes.html" class="hover:underline font-semibold">Detalhes do Shows</a>
+                    <a href="#" class="hover:underline font-semibold">Forms</a>
+                </nav>
+            </header>
+
+            <main class="flex-1 flex flex-col gap-2">
+
+                <div id="form" class="h-100">
+
+                </div>
+
+            </main>
+
+
+            <footer class="p-6 bg-[#C8DF9A] text-[#87C074] flex-shrink-0 mt-auto">
+                <p class="font-bold text-center">Talita de Souza Keller, Atividade LPII, 3I</p>
+            </footer>
+        </div>
+
+    </div>
+
+
+    <script>
+        const sidebar = document.getElementById('side-bar');
+        const toggleBtn = document.getElementById('toggleSidebar');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-ml-50');
+        });
+    </script>
+</body>
+
+</html>
