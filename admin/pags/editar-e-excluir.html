@@ -58,7 +58,30 @@
             <main class="flex-1 flex flex-col gap-2">
 
                 <div id="form" class="h-100">
+                    <div id="listar" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 m-10">
 
+                        <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira o nome para encontrar o show:</h1>
+
+                        <form action="phps/editar.php" method="GET" class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <label for="titulo_busca" class="text-sm font-medium text-gray-700">Título do
+                                    show</label>
+                                <input type="text" id="titulo_busca" name="titulo" placeholder="Nome do show"
+                                    class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+
+                            <button type="submit" formaction="phps/editar.php" formmethod="GET"
+                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                                Editar
+                            </button>
+
+                            <button type="submit" formaction="phps/excluir.php" formmethod="POST"
+                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                                Excluir
+                            </button>
+                        </form>
+
+                    </div>
                 </div>
 
             </main>

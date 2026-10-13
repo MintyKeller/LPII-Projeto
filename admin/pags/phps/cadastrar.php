@@ -13,8 +13,6 @@ $preco = $_POST["preco"];
 $capacidade = $_POST["capacidade"];
 $ing_disponiveis = $_POST["ing_disponiveis"];
 $imagem = $_POST["imagem"];
-
-
 $categ_id = $_POST["categ_id"];
 
 if ($categ_id === "nova") {

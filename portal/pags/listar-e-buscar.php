@@ -41,7 +41,7 @@ $resultado = mysqli_query($conexao, $sql);
 
                     <div>
                         <a href="#"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Forms</a>
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">X</a>
                     </div>
 
                     <div>
@@ -57,28 +57,36 @@ $resultado = mysqli_query($conexao, $sql);
         <div id="area" class="flex-1 flex flex-col h-full overflow-y-auto">
 
             <header class="bg-[#C8DF9A] text-[#87C074] p-6 flex flex-col gap-4 flex-shrink-0">
-                <h1 class="font-bold text-2xl text-center">Detalhes dos Shows</h1>
+                <h1 class="font-bold text-2xl text-center">Listar e Buscar</h1>
                 <nav class="flex justify-center gap-20">
                     <a href="../portal.html" class="hover:underline font-semibold">Home</a>
-                    <a href="#" class="hover:underline font-semibold">Forms</a>
+                    <a href="#" class="hover:underline font-semibold">X</a>
                 </nav>
             </header>
 
-            <main class="flex-1 flex flex-col gap-2">
+                        <div id="listar" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 m-10">
 
-                <div id="shows" class=" grid grid-cols-1 md:grid-cols-3 gap-6 mb-5 mt-5 m-10">
-                    <?php if (mysqli_num_rows($resultado) === 0) { ?>
-                    <p class="text-gray-500 col-span-full text-center">Nenhum show cadastrado ainda.</p>
-                    <?php } ?>
+                        <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira o nome para procurar show, ou apenas clique no botão para listar todos:</h1>
 
-                    <?php while ($show = mysqli_fetch_assoc($resultado)) {
-                    mostrarCardShow($show);
-                    } ?>
-                </div>
-                   
-                
+                        <form action="phps/buscar.php" method="GET" class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <label for="titulo_busca" class="text-sm font-medium text-gray-700">Título do show</label>
+                                <input type="text" id="titulo_busca" name="titulo" placeholder="Nome do show"
+                                    class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
 
-            </main>
+                            <button type="submit"
+                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                                Buscar por Nome
+                            </button>
+
+                             <a href="phps/listar.php"
+                            class="text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
+                            Listar Todos
+                            </a>
+                        </form>
+
+                    </div>
 
 
             <footer class="p-6 bg-[#C8DF9A] text-[#87C074] flex-shrink-0 mt-auto">
