@@ -2,18 +2,24 @@
 require_once __DIR__ . "/../../../admin/pags/phps/conexao.php";
 require_once __DIR__ . "/../../../admin/pags/phps/func/mostrarCardShow.php";
 
+
+
 $titulo = trim($_GET["titulo"] ?? "");
+$categ  = (int)($_GET["categoria"] ?? 0);
 $busca  = "%" . $titulo . "%";
 
 $sql = "SELECT s.*, c.nome_show AS categoria
         FROM shows s
         LEFT JOIN categoria c ON c.id_categ = s.categ_id
-        WHERE s.titulo LIKE ?
+        WHERE s.data_show > CURDATE()
+          AND s.titulo LIKE ?
+          AND (? = 0 OR s.categ_id = ?)
         ORDER BY s.data_show";
 $stmt = mysqli_prepare($conexao, $sql);
-mysqli_stmt_bind_param($stmt, "s", $busca);
+mysqli_stmt_bind_param($stmt, "sii", $busca, $categ, $categ);
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +45,7 @@ $resultado = mysqli_stmt_get_result($stmt);
             <?php } ?>
 
             <?php while ($show = mysqli_fetch_assoc($resultado)) {
-                mostrarCardShow($show, false);
+                mostrarCardShow($show, false, '../../../admin/pags/fotos/', '../');
             } ?>
         </div>
     </main>

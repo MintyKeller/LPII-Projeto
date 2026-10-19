@@ -1,14 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-require_once __DIR__ . "/../../admin/pags/phps/conexao.php";
-require_once __DIR__ . "/../../admin/pags/phps/func/mostrarCardShow.php";
 
-$sql = "SELECT s.*, c.nome_show AS categoria
-        FROM shows s
-        LEFT JOIN categoria c ON c.id_categ = s.categ_id
-        ORDER BY s.data_show";
-$resultado = mysqli_query($conexao, $sql);
+require_once __DIR__ . "/../../admin/pags/phps/conexao.php";
+$categorias = mysqli_query($conexao, "SELECT id_categ, nome_show FROM categoria ORDER BY nome_show");
 ?>
 
 <!DOCTYPE html>
@@ -39,16 +32,6 @@ $resultado = mysqli_query($conexao, $sql);
                             class="px-4 py-2 rounded-lg bg-white/20 text-white font-medium hover:bg-white/30 transition">Home</a>
                     </div>
 
-                    <div>
-                        <a href="#"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">X</a>
-                    </div>
-
-                    <div>
-                        <a href="#"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">x</a>
-                    </div>
-
                 </nav>
             </div>
 
@@ -60,7 +43,6 @@ $resultado = mysqli_query($conexao, $sql);
                 <h1 class="font-bold text-2xl text-center">Listar e Buscar</h1>
                 <nav class="flex justify-center gap-20">
                     <a href="../portal.html" class="hover:underline font-semibold">Home</a>
-                    <a href="#" class="hover:underline font-semibold">X</a>
                 </nav>
             </header>
 
@@ -70,6 +52,12 @@ $resultado = mysqli_query($conexao, $sql);
 
                         <form action="phps/buscar.php" method="GET" class="flex flex-col gap-4">
                             <div class="flex flex-col gap-1">
+                                <select name="categoria" class="border border-gray-300 rounded-lg p-2.5">
+                                    <option value="0">Todas as categorias</option>
+                                    <?php while ($c = mysqli_fetch_assoc($categorias)) { ?>
+                                        <option value="<?= $c['id_categ'] ?>"><?= htmlspecialchars($c['nome_show']) ?></option>
+                                    <?php } ?>
+                                </select>
                                 <label for="titulo_busca" class="text-sm font-medium text-gray-700">Título do show</label>
                                 <input type="text" id="titulo_busca" name="titulo" placeholder="Nome do show"
                                     class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">

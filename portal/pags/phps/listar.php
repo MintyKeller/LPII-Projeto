@@ -5,6 +5,7 @@ require_once __DIR__ . "/../../../admin/pags/phps/func/mostrarCardShow.php";
 $sql = "SELECT s.*, c.nome_show AS categoria
         FROM shows s
         LEFT JOIN categoria c ON c.id_categ = s.categ_id
+        WHERE s.data_show > CURDATE()
         ORDER BY s.data_show";
 $resultado = mysqli_query($conexao, $sql);
 ?>
@@ -31,7 +32,7 @@ $resultado = mysqli_query($conexao, $sql);
             <?php } ?>
 
             <?php while ($show = mysqli_fetch_assoc($resultado)) {
-                mostrarCardShow($show, false);
+               mostrarCardShow($show, false, '../../../admin/pags/fotos/', '../');
             } ?>
         </div>
     </main>
@@ -41,3 +42,6 @@ $resultado = mysqli_query($conexao, $sql);
     </footer>
 </body>
 </html>
+
+<!--Portal: Listar todos os Shows ativos (shows
+futuros data do show Maior que data atual).-->

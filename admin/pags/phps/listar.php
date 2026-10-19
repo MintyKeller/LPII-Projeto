@@ -25,6 +25,8 @@ $resultado = mysqli_query($conexao, $sql);
     <main class="flex-1 p-10 flex flex-col gap-6">
         <a href="../inserir-e-listar.php" class="text-blue-600 hover:underline font-semibold">Voltar</a>
 
+        <a href="relatorio.php" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"> Gerar PDF</a>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <?php if (mysqli_num_rows($resultado) === 0) { ?>
                 <p class="text-gray-500 col-span-full text-center">Nenhum show cadastrado ainda.</p>

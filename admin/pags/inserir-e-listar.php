@@ -61,12 +61,12 @@ if (!$resultado) {
 
                 <div id="form" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
 
-                    <!-- BLOCO INSERIR (ESQUERDA) -->
+              
                     <div id="inserir" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
 
                         <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira os dados para cadastrar show:</h1>
 
-                        <form action="phps/cadastrar.php" method="POST" class="flex flex-col gap-4">
+                        <form action="phps/cadastrar.php" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4">
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="flex flex-col gap-1">
@@ -89,7 +89,7 @@ if (!$resultado) {
                                     <input type="text" id="titulo" name="titulo" placeholder="Nome do show"
                                         class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
-                            </div> <!-- FECHAMENTO CORRIGIDO DA GRID DE CATEGORIA E TÍTULO -->
+                            </div> 
 
                             <div class="flex flex-col gap-1">
                                 <label for="descricao" class="text-sm font-medium text-gray-700">Descrição</label>
@@ -132,9 +132,9 @@ if (!$resultado) {
                             </div>
 
                             <div class="flex flex-col gap-1">
-                                <label for="imagem" class="text-sm font-medium text-gray-700">Imagem</label>
-                                <input type="text" id="imagem" name="imagem" placeholder="URL da imagem"
-                                    class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="imagem" class="text-sm font-medium text-gray-700">Cartaz do show (JPG)</label>
+                                <input type="file" id="imagem" name="imagem" accept=".jpg,.jpeg,image/jpeg"
+                                class="border border-gray-300 rounded-lg p-2.5 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:bg-blue-50 file:text-blue-700">
                             </div>
 
                             <button type="submit"
@@ -146,7 +146,7 @@ if (!$resultado) {
 
                     </div>
 
-                    <!-- BLOCO LISTAR (DIREITA) -->
+                
                     <div id="listar" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
 
                         <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira o nome para procurar show, ou apenas clique no botão para listar todos:</h1>

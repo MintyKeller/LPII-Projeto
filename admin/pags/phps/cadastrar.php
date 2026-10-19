@@ -12,7 +12,6 @@ $locais = $_POST["locais"];
 $preco = $_POST["preco"];
 $capacidade = $_POST["capacidade"];
 $ing_disponiveis = $_POST["ing_disponiveis"];
-$imagem = $_POST["imagem"];
 $categ_id = $_POST["categ_id"];
 
 if ($categ_id === "nova") {
@@ -23,16 +22,14 @@ if ($categ_id === "nova") {
     $categ_id = mysqli_insert_id($conexao);
 }
 
-
 $sql = "INSERT INTO shows
-        (categ_id, titulo, descricao, data_show, locals, preco, capacidade, ing_disponiveis, imagem)
-        VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        (categ_id, titulo, descricao, data_show, locals, preco, capacidade, ing_disponiveis)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = mysqli_prepare($conexao, $sql);
-//i i s s s s d i i s
 mysqli_stmt_bind_param(
     $stmt,
-    "issssdiis",
+    "issssdii",
     $categ_id,
     $titulo,
     $descricao,
@@ -40,13 +37,17 @@ mysqli_stmt_bind_param(
     $locais,
     $preco,
     $capacidade,
-    $ing_disponiveis,
-    $imagem
+    $ing_disponiveis
 );
 
 mysqli_stmt_execute($stmt);
 
 $id_novo = mysqli_insert_id($conexao);
+
+if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+    $arquivo = __DIR__ . '/../fotos/' . $id_novo . '.jpg';
+    move_uploaded_file($_FILES['imagem']['tmp_name'], $arquivo);
+}
 
 $sql = "SELECT s.*, c.nome_show AS categoria
         FROM shows s
@@ -57,6 +58,7 @@ mysqli_stmt_bind_param($stmt, "i", $id_novo);
 mysqli_stmt_execute($stmt);
 $show = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

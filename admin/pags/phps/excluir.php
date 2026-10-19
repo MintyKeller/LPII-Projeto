@@ -6,14 +6,20 @@ require_once __DIR__ . "/func/mostrarCardShow.php";
 if (isset($_POST["id_excluir"])) {
     $id = (int) $_POST["id_excluir"];
 
+  
     $stmt = mysqli_prepare($conexao, "DELETE FROM shows WHERE id_show = ?");
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
 
-   $msg = mysqli_stmt_affected_rows($stmt) > 0
-        ? "Show excluído com sucesso!"
-        : "Não foi possível excluir o show.";
-
+    if (mysqli_stmt_affected_rows($stmt) > 0) {
+        $foto = __DIR__ . '/../fotos/' . $id . '.jpg';
+        if (file_exists($foto)) {
+            unlink($foto);
+        }
+        $msg = "Show excluído com sucesso!";
+    } else {
+        $msg = "Não foi possível excluir o show.";
+    }
     echo "<script>
         alert(" . json_encode($msg) . ");
         window.location.href = '../editar-e-excluir.html';

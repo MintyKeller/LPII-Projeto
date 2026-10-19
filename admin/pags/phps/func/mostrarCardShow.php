@@ -1,19 +1,25 @@
 <?php
-function mostrarCardShow(array $show, bool $comBotao = true)
-{
+function mostrarCardShow(
+    array $show,
+    bool $comBotao = true,
+    string $baseFoto = '../fotos/',
+    ?string $baseDetalhe = null
+) {
     $titulo    = htmlspecialchars($show['titulo']);
     $categoria = htmlspecialchars($show['categoria'] ?? 'Sem categoria');
     $descricao = htmlspecialchars($show['descricao']);
     $local     = htmlspecialchars($show['locals']);
-    $imagem    = htmlspecialchars($show['imagem']);
     $data      = date('d/m/Y', strtotime($show['data_show']));
     $preco     = number_format($show['preco'], 2, ',', '.');
     $ingressos = (int) $show['ing_disponiveis'];
+    $id        = (int) $show['id_show'];
+    $foto      = $baseFoto . $id . '.jpg';
+    $temFoto   = file_exists(__DIR__ . '/../../fotos/' . $id . '.jpg');
 ?>
     <div class="show bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-shadow">
         <div>
-            <?php if ($imagem) { ?>
-                <img src="<?= $imagem ?>" alt="<?= $titulo ?>" class="w-full h-40 object-cover rounded-xl mb-4">
+            <?php if ($temFoto) { ?>
+                <img src="<?= $foto ?>" alt="<?= $titulo ?>" class="w-full h-64 object-cover rounded-xl mb-4">
             <?php } ?>
 
             <span class="text-xs font-semibold text-[#87C074] uppercase"><?= $categoria ?></span>
@@ -32,6 +38,13 @@ function mostrarCardShow(array $show, bool $comBotao = true)
             <button class="w-full bg-[#ffe285] hover:bg-[#FA9E5E] text-white font-medium py-2.5 px-4 rounded-xl transition-colors mt-4">
                 <p class="font-bold">Comprar</p>
             </button>
+        <?php } ?>
+
+        <?php if ($baseDetalhe !== null) { ?>
+            <a href="<?= $baseDetalhe ?>show.php?id=<?= $id ?>"
+               class="block text-center w-full bg-[#ffe285] hover:bg-[#FA9E5E] text-white font-bold py-2.5 px-4 rounded-xl transition-colors mt-4">
+                Ver Mais
+            </a>
         <?php } ?>
     </div>
 <?php
