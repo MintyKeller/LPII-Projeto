@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../verifica_sessao.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -83,7 +84,7 @@ $show = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
         <div class="flex gap-4">
             <a href="../inserir-e-listar.php"
                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition">Cadastrar outro show</a>
-            <a href="../../area.html"
+            <a href="../../area.php"
                class="bg-white border border-gray-300 text-gray-700 font-semibold py-2.5 px-4 rounded-lg hover:bg-gray-50 transition">Voltar ao admin</a>
         </div>
     </main>

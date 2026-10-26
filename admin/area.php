@@ -23,21 +23,27 @@
                 <nav class="flex flex-col gap-3">
 
                     <div>
-                        <a href="../area.html"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Home</a>
-                    </div>
-
-                    <div>
-                        <a href="inserir-e-listar.php"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Inserir
+                        <a href="pags/inserir-e-listar.php"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">1.
+                            Inserir
                             e Listar </a>
                     </div>
 
                     <div>
-                        <a href="editar-e-excluir.html"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Edição
+                        <a href="pags/editar-e-excluir.php"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">2.
+                            Edição
                             e Exclusão</a>
                     </div>
+
+                    <div>
+                        <a href="pags/login-e-logout.php"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">3.
+                            Login
+                            e Logout</a>
+                    </div>
+
+
 
                 </nav>
             </div>
@@ -47,17 +53,20 @@
         <div id="area" class="flex-1 flex flex-col h-full overflow-y-auto">
 
             <header class="bg-[#C8DF9A] text-[#87C074] p-6 flex flex-col gap-4 flex-shrink-0">
-                <h1 class="font-bold text-2xl text-center">Login e Logout</h1>
+                <h1 class="font-bold text-2xl text-center">Área Admin</h1>
                 <nav class="flex justify-center gap-20">
-                    <a href="../area.html" class="hover:underline font-semibold">Home</a>
+                    <a href="pags/inserir-e-listar.php" class="hover:underline font-semibold">1</a>
+                    <a href="pags/editar-e-excluir.php" class="hover:underline font-semibold">2</a>
+                    <a href="pags/login-e-logout.php" class="hover:underline font-semibold">3</a>
                 </nav>
             </header>
 
             <main class="flex-1 flex flex-col gap-2">
 
-                <div id="form" class="h-100">
+                <div id="form" class="h-100 flex items-center justify-center p-4">
+                    <img src="flower-seamless-pattern-design-beautiful-260nw-2763855725.webp" alt=""
+                        class="w-full max-w-md h-auto object-contain">
 
-                </div>
 
             </main>
 

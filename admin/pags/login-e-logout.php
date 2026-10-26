@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../verifica_sessao.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,12 +35,10 @@
                     </div>
 
                     <div>
-                        <a href="login-e-logout.html"
-                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Login
-                            e Logout</a>
+                        <a href="editar-e-excluir.html"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Edição
+                            e Exclusão</a>
                     </div>
-
-
 
                 </nav>
             </div>
@@ -49,7 +48,7 @@
         <div id="area" class="flex-1 flex flex-col h-full overflow-y-auto">
 
             <header class="bg-[#C8DF9A] text-[#87C074] p-6 flex flex-col gap-4 flex-shrink-0">
-                <h1 class="font-bold text-2xl text-center">Edição e Exclusão</h1>
+                <h1 class="font-bold text-2xl text-center">Login e Logout</h1>
                 <nav class="flex justify-center gap-20">
                     <a href="../area.html" class="hover:underline font-semibold">Home</a>
                 </nav>
@@ -57,30 +56,28 @@
 
             <main class="flex-1 flex flex-col gap-2">
 
-                <div id="form" class="h-100">
-                    <div id="listar" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 m-10">
+                <div id="form" class="h-100 p-10">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 max-w-md">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Sessão ativa</h2>
 
-                        <h1 class="text-2xl font-bold text-gray-800 mb-6">Insira o nome para encontrar o show:</h1>
+                        <p class="text-gray-700">Olá, <strong>
+                                <?= htmlspecialchars($_SESSION['usuario_nome']) ?>
+                            </strong>!</p>
+                        <p class="text-gray-700 mt-2">Última atividade registrada:
+                            <strong>
+                                <?= date('H:i:s', $_SESSION['ultimo_acesso']) ?>
+                            </strong>
+                        </p>
+                        <p class="text-gray-500 text-sm mt-4">
+                            A sessão expira após
+                            <?= (int) $tempo_limite ?> segundos sem atividade.
+                            Cada página que você abre renova o tempo.
+                        </p>
 
-                        <form action="phps/editar.php" method="GET" class="flex flex-col gap-4">
-                            <div class="flex flex-col gap-1">
-                                <label for="titulo_busca" class="text-sm font-medium text-gray-700">Título do
-                                    show</label>
-                                <input type="text" id="titulo_busca" name="titulo" placeholder="Nome do show"
-                                    class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-
-                            <button type="submit" formaction="phps/editar.php" formmethod="GET"
-                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
-                                Editar
-                            </button>
-
-                            <button type="submit" formaction="phps/excluir.php" formmethod="POST"
-                                class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200">
-                                Excluir
-                            </button>
-                        </form>
-
+                        <a href="../logout.php"
+                            class="inline-block mt-6 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-6 rounded-lg transition duration-200">
+                            Sair
+                        </a>
                     </div>
                 </div>
 
@@ -106,3 +103,5 @@
 </body>
 
 </html>
+
+<!---INSERT INTO usuarios (nome, email, senha) VALUES ('admin', 'admin@email.com', '123'); -->

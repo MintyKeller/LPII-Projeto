@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../verifica_sessao.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -30,7 +31,6 @@ if ($titulo !== '') {
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
 
-// Monta o HTML do relatório
 $html  = '<html><head><meta charset="utf-8">';
 $html .= '<style>
     body { font-family: sans-serif; font-size: 12px; }

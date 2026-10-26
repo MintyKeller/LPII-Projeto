@@ -40,3 +40,6 @@ CREATE TABLE usuarios (
     email_usuario VARCHAR(100), 
     senha VARCHAR(100)
 );
+
+-- usuário para testar o login do admin
+INSERT INTO usuarios (nome_usuario, email_usuario, senha) VALUES ('Admin', 'admin@email.com', '123');

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../verifica_sessao.php';
 require_once __DIR__ . "/conexao.php";
 require_once __DIR__ . "/func/mostrarCardShow.php";
 
@@ -67,7 +68,7 @@ $resultado = mysqli_stmt_get_result($stmt);
     </header>
 
     <main class="flex-1 p-10 flex flex-col gap-6">
-        <a href="../editar-e-excluir.html" class="text-blue-600 hover:underline font-semibold">Voltar</a>
+        <a href="../editar-e-excluir.php" class="text-blue-600 hover:underline font-semibold">Voltar</a>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <?php if (mysqli_num_rows($resultado) === 0) { ?>

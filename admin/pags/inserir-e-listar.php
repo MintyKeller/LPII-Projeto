@@ -9,6 +9,7 @@
 </head>
 
 <?php
+require_once __DIR__ . '/../verifica_sessao.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require_once "phps/conexao.php";
@@ -31,17 +32,17 @@ if (!$resultado) {
                 <div class="h-15"></div>
                 <nav class="flex flex-col gap-3">
                     <div>
-                        <a href="../area.html"
+                        <a href="../area.php"
                             class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Home Admin</a>
                     </div>
 
                     <div>
-                        <a href="editar-e-excluir.html"
+                        <a href="editar-e-excluir.php"
                             class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Edição e Exclusão</a>
                     </div>
 
                     <div>
-                        <a href="login-e-logout.html"
+                        <a href="login-e-logout.php"
                             class="px-4 py-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition">Login e Logout</a>
                     </div>
                 </nav>
@@ -53,7 +54,7 @@ if (!$resultado) {
             <header class="bg-[#C8DF9A] text-[#87C074] p-6 flex flex-col gap-4 flex-shrink-0">
                 <h1 class="font-bold text-2xl text-center">Inserir e Listar</h1>
                 <nav class="flex justify-center gap-20">
-                    <a href="../area.html" class="hover:underline font-semibold">Home</a>
+                    <a href="../area.php" class="hover:underline font-semibold">Home</a>
                 </nav>
             </header>
 
